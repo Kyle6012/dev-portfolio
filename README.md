@@ -146,7 +146,7 @@ src/
    WHERE username = 'admin';
    ```
 
-2. **Or update via admin panel** after logging in
+2. **Or update via the .env file** 
 
 ### Customization
 
