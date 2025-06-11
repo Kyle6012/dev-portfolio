@@ -6,6 +6,8 @@ export interface Project {
   full_description?: string;
   image_url?: string;
   images?: string[];
+  cloudinary_public_id?: string;
+  cloudinary_secure_url?: string;
   tags: string[];
   live_url?: string;
   github_url?: string;
@@ -21,6 +23,8 @@ export interface CreateProjectData {
   full_description?: string;
   image_url?: string;
   images?: string[];
+  cloudinary_public_id?: string;
+  cloudinary_secure_url?: string;
   tags: string[];
   live_url?: string;
   github_url?: string;

@@ -32,6 +32,8 @@ export type Database = {
       }
       projects: {
         Row: {
+          cloudinary_public_id: string | null
+          cloudinary_secure_url: string | null
           created_at: string
           description: string | null
           display_order: number | null
@@ -47,6 +49,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          cloudinary_public_id?: string | null
+          cloudinary_secure_url?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null
@@ -62,6 +66,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          cloudinary_public_id?: string | null
+          cloudinary_secure_url?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null

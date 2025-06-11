@@ -36,6 +36,40 @@ A production-ready portfolio web application built with React, TypeScript, and S
 ### Prerequisites
 - Node.js 18+ and npm
 - Supabase account
+- Cloudinary Account
+
+# 🌩️ Cloudinary Setup Instructions
+
+Follow these steps to configure Cloudinary for client-side uploads:
+
+1. **Sign Up / Log In**
+   - Go to [https://cloudinary.com/](https://cloudinary.com/) and sign up for a free account.
+
+2. **Get Your Cloud Name**
+   - After signing in, navigate to your **Dashboard**.
+   - Your **Cloud Name** will be listed there.
+
+3. **Create an Upload Preset**
+   - Go to: **Settings → Upload → Upload presets**.
+   - Click **"Add upload preset"**.
+
+4. **Configure the Preset**
+   - Name your preset (e.g., `unsigned_upload`).
+   - Set the **Signing Mode** to `Unsigned`.
+   - Configure any other options (e.g., allowed formats, folder, etc.).
+   - Save the preset.
+
+5. **Update Your Environment Variables**
+   - Add the following to your `.env` file (for Vite or similar):
+     ```env
+     VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name_here
+     VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset_here
+     ```
+   - Replace with your actual values.
+---
+
+> ✅ You're now ready to upload images directly from the frontend using Cloudinary's unsigned upload method.
+
 
 ### Installation
 

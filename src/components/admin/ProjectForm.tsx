@@ -9,13 +9,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import { ImageUpload } from './ImageUpload';
 import { Project } from '@/types/project';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
   full_description: z.string().optional(),
-  image_url: z.string().url().optional().or(z.literal('')),
+  image_url: z.string().optional(),
+  cloudinary_public_id: z.string().optional(),
+  cloudinary_secure_url: z.string().optional(),
   tags: z.array(z.string()),
   live_url: z.string().url().optional().or(z.literal('')),
   github_url: z.string().url().optional().or(z.literal('')),
@@ -46,6 +49,8 @@ export const ProjectFormComponent: React.FC<ProjectFormProps> = ({
       description: project?.description || '',
       full_description: project?.full_description || '',
       image_url: project?.image_url || '',
+      cloudinary_public_id: project?.cloudinary_public_id || '',
+      cloudinary_secure_url: project?.cloudinary_secure_url || '',
       tags: project?.tags || [],
       live_url: project?.live_url || '',
       github_url: project?.github_url || '',
@@ -54,6 +59,19 @@ export const ProjectFormComponent: React.FC<ProjectFormProps> = ({
   });
 
   const watchedTags = form.watch('tags');
+  const currentImage = form.watch('cloudinary_secure_url') || form.watch('image_url');
+
+  const handleImageUpload = (imageData: { url: string; publicId: string }) => {
+    form.setValue('cloudinary_secure_url', imageData.url);
+    form.setValue('cloudinary_public_id', imageData.publicId);
+    form.setValue('image_url', imageData.url); // Keep for backward compatibility
+  };
+
+  const handleImageRemove = () => {
+    form.setValue('cloudinary_secure_url', '');
+    form.setValue('cloudinary_public_id', '');
+    form.setValue('image_url', '');
+  };
 
   const addTag = () => {
     if (tagInput.trim() && !watchedTags.includes(tagInput.trim())) {
@@ -77,7 +95,7 @@ export const ProjectFormComponent: React.FC<ProjectFormProps> = ({
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="title"
@@ -124,19 +142,15 @@ export const ProjectFormComponent: React.FC<ProjectFormProps> = ({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="image_url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image URL</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="https://example.com/image.jpg" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="space-y-2">
+              <FormLabel>Project Image</FormLabel>
+              <ImageUpload
+                onImageUpload={handleImageUpload}
+                onImageRemove={handleImageRemove}
+                currentImage={currentImage}
+                isLoading={isLoading}
+              />
+            </div>
 
             <div className="space-y-2">
               <FormLabel>Tags</FormLabel>
