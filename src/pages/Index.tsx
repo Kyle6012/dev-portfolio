@@ -68,7 +68,7 @@ const Index = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-blue-500 to-purple-500 bg-clip-text text-transparent"
           >
-            Software Engineer
+            Meshack Bahati
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
